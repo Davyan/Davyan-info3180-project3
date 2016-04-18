@@ -1,74 +1,49 @@
-<!doctype html>
-<html class="no-js" lang="en">
-<head>
-  <meta charset="utf-8">
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src = "static/js/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src = "static/js/bower_components/angular/angular.min.js"></script>
+    <link rel="stylesheet" href="static/js/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+    <script src= "static/js/bower_components/angular-route/angular-route.min.js"></script>
+    <script src= "static/js/bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="static/js/app.js"></script>
+    <style>
+    .row{
+      padding-top: 10px;
+    }
 
-  <title>{% block title %}yoursite.com{% endblock %}</title>
+    .preview{
+      height: 100px;
+      width: 100px;
+    }
+    .thumb{
+      height: 48px;
+      width: 48px;
+    }
+    </style>
+  </head>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="shortcut icon" href="/static/favicon.ico">
-
-  <!-- HTML5 shim, for IE 6-8 support of HTML elements -->
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-
-  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/static/css/bootstrap-theme.min.css">
-  <link rel="stylesheet/less" href="/static/css/main.less">
-  {% block css %}{% endblock %}
-
-  <!-- Rather use `less.js` to dynamically compile your `stylesheet/less` files? -->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.4.1/less.min.js"></script>
-  <script>window.less || document.write('<script src="/static/js/less.js">\x3C/script>')</script>
-
-  <!-- Need Modernizr? Uncomment the following script. -->
-  <!-- <script src="/static/js/modernizr.js"></script> -->
-
-</head>
-
-<body>
-
-  <header>
-    {% include "header.html" %}
-  </header>
-
-  <div id="main" role="main">
-    {% block main %}{% endblock %}
-  </div>
-
-  <footer>
-    {% include "footer.html" %}
-  </footer>
-
-
-  <!-- JavaScript at the bottom for fast page loading -->
-
-  <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if necessary -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="/static/js/libs/jquery.js">\x3C/script>')</script>
-
-
-  <!-- Additional JavaScript libraries and plugins... -->
-  {% block js %}{% endblock %}
-
-
-  <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
-  <script>
-    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
-    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-    s.parentNode.insertBefore(g,s)}(document,'script'));
-  </script>
-
-
-  <!-- Prompt IE < 8 users to install Chrome Frame.  -->
-  <!--[if lt IE 8 ]>
-    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-    <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
-  <![endif]-->
-
-</body>
+  <body class="container" ng-app="wishListApp">
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav"> 
+          <li ng-hide="$root.loggedIn"><a ng-href="#/login">Login</a></li>
+          <li ng-show="$root.loggedIn"><a href="">Hello, {{$root.currentUserName}}</a></li>
+          <li ng-show="$root.loggedIn"><a href=""><span ng-click="$root.getMyWishlist()">My Wishlist</span></a></li>
+          <li><a ng-href="#/profiles">Users</a></li>
+          <li ng-show="$root.loggedIn"><a href=""><span ng-click="$root.logout()">Logout</span></a></li>
+          <li ng-hide="$root.loggedIn"><a ng-href="#/signup">Sign Up</a></li>
+          <li >Share</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div ng-show="$root.error" class="alert alert-danger">
+      <div ng-repeat="(key , values) in $root.errors">
+        <div ng-repeat="value in [].concat(values)">
+          {{key}} : {{value}}
+        </div>
+      </div>
+    </div>
+    <ng-view></ng-view>
+  </body>
 </html>
