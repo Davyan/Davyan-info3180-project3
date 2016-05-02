@@ -1,8 +1,6 @@
 # info3180-project3
 Wishlist Application built with Flask and Angular
 
-Working application can be found on <a href="http://davywishlist.herokuapp.com/">My Wishlist</a>
-
 <h2>API description</h2>
 
 <li>POST /signup</li>
